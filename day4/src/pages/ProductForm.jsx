@@ -1,0 +1,86 @@
+import React, { useEffect, useState } from 'react'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import "../styles/main.css"
+import { addNewProduct, getProductById, updateProduct } from '../api/productApi';
+import { useNavigate, useParams } from 'react-router-dom';
+
+
+export default function ProductForm() {
+
+ const {id} = useParams()
+ const [error , setError] = useState(null)
+ const [formData, setFormData]= useState({
+    name: '',
+    price: '',
+    quantity: '',
+    category: '',
+    imgUrl: ''
+ })
+
+ useEffect(()=>{
+  if(id!=0){
+
+    getProductById(id).then((response) => setFormData(response.data)).catch((error) => setError(error));
+  }
+}, [id])
+
+  const navigate = useNavigate();
+
+  const inputHandler = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  const productHandler =async (event) => {
+    event.preventDefault();
+    if(id==0){
+      await addNewProduct(formData)
+      navigate('/products')
+    }else {
+      await updateProduct(id, formData)
+    navigate('/products')
+    }
+    
+
+  }
+
+
+  return (
+    <div className='container mb-5'>
+      <h1 className='fw-bold text-center my-5'>{id==0 ? "Add New Product":"Edit Product"}</h1>
+      <Form onSubmit={productHandler} className='mt-5  product-form'>    
+      <Form.Group className="mb-3" controlId="productName">
+        <Form.Label>Product Name</Form.Label>
+        <Form.Control name='name' value={formData.name} onChange={inputHandler} type="text" placeholder="Enter Product Name" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="productPrice">
+        <Form.Label>Product Price</Form.Label>
+        <Form.Control name='price' value={formData.price} onChange={inputHandler} type="text" placeholder="Enter Product Price" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="productQuantity">
+        <Form.Label>Product Quantity</Form.Label>
+        <Form.Control name='quantity' value={formData.quantity} onChange={inputHandler} type="text" placeholder="Enter Product Quantity" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="productCategory">
+        <Form.Label>Product Category</Form.Label>
+        <Form.Control name='category' value={formData.category} onChange={inputHandler} type="text" placeholder="Enter Product Category" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="productImg">
+        <Form.Label>Product Image</Form.Label>
+        <Form.Control name='imgUrl' value={formData.imgUrl} onChange={inputHandler} type="text" placeholder="Enter Product Image URL" />
+      </Form.Group>
+      
+      <Button variant="primary" className='btn btn-success' type="submit">
+      {id==0 ? "Add New Product":"Edit Product"}
+      </Button>
+    </Form>
+    </div>
+  )
+}
