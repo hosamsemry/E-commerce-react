@@ -5,25 +5,18 @@ import { FaSadTear, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../api/productApi';
 import HeroSection from "../components/Hero.jsx";
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProductsAction } from '../store/productSlice.js';
 
 export default function Home() {
 
 
-  let [products, setProducts] = useState([])
-  let [errors, setErrors] = useState(null)
+  const {products,isLoading,errors} = useSelector((store)=> store.productSlice)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        let response = await getAllProducts();
-        setProducts(response.data);
-      } catch (error) {
-        setErrors(error);
-      }
-    };
-  
-    fetchProducts(); 
-  }, []);
+    dispatch(getAllProductsAction());
+  }, [dispatch]);
 
   return (
     <>
@@ -40,10 +33,10 @@ export default function Home() {
                     Price: {product.price} <span style={{color:'darkgreen'}}>$</span>
                     </Card.Text>
                     <Card.Text>
-                    category: {product.category}
+                    Category: {product.category}
                     </Card.Text>
                     <Card.Text>
-                    quantity: {product.quantity}
+                    Quantity: {product.quantity}
                     </Card.Text>
                     <Card.Text>
                      
@@ -56,7 +49,7 @@ export default function Home() {
 
                     <div className='d-flex justify-content-between'>
                     <Link to={`/products/${product.id}/edit`}>
-                    <Button  variant="primary" className='btn btn-success fw-bold'>Add Product</Button>
+                    <Button  variant="primary" className='btn btn-success fw-bold'>Add To Cart</Button>
                     </Link>
                     
                     <Link to={`/products/${product.id}/edit`}>

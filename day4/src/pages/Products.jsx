@@ -7,24 +7,33 @@ import { MdDelete } from "react-icons/md";
 import { Link, Links } from 'react-router-dom';
 import axios from 'axios';
 import { deleteProduct, getAllProducts } from '../api/productApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProductAction, getAllProductsAction } from '../store/productSlice';
+
 
 export default function Products() {
   
-  let [products, setProducts] = useState([])
-  let [errors, setErrors] = useState(null)
+  const {products,isLoading,errors} = useSelector((store)=> store.productSlice)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        let response = await getAllProducts();
-        setProducts(response.data);
-      } catch (error) {
-        setErrors(error);
-      }
-    };
+    dispatch(getAllProductsAction());
+  }, [dispatch]);
+  // let [products, setProducts] = useState([])
+  // let [errors, setErrors] = useState(null)
+
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       let response = await getAllProducts();
+  //       setProducts(response.data);
+  //     } catch (error) {
+  //       setErrors(error);
+  //     }
+  //   };
   
-    fetchProducts(); 
-  }, []);
+  //   fetchProducts(); 
+  // }, []);
   
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -37,12 +46,7 @@ export default function Products() {
   );
 
   const deleteHandler = async (id) => {
-    await deleteProduct(id).then(()=>{
-      setProducts(products.filter(product => product.id !== id))
-    }).catch((error)=>{
-      setErrors(error)
-    }
-    )
+    dispatch(deleteProductAction(id));
   }
 
   return (

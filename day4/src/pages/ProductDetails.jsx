@@ -5,15 +5,16 @@ import { FaStar } from "react-icons/fa";
 import { Link, Links, useParams } from 'react-router-dom';
 import { getProductById } from '../api/productApi';
 import "../styles/main.css"
+import { useSelector } from 'react-redux';
 
 export default function ProductDetails() {
 
     const {id} = useParams()
     const [product, setProduct] = useState({})
     const [error , setError] = useState(null)
-
+    const {products}= useSelector((store) => store.productSlice)
     useEffect(()=>{
-        getProductById(id).then((response) => setProduct(response.data)).catch((error) => setError(error));
+        setProduct(products.find(product => product.id == id))
     }, [id])
 
   return (

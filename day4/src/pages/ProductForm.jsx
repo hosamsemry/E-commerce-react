@@ -4,10 +4,13 @@ import Form from 'react-bootstrap/Form';
 import "../styles/main.css"
 import { addNewProduct, getProductById, updateProduct } from '../api/productApi';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addProductAction, updateProductAction } from '../store/productSlice';
 
 
 export default function ProductForm() {
 
+ const dispatch = useDispatch();
  const {id} = useParams()
  const [error , setError] = useState(null)
  const [formData, setFormData]= useState({
@@ -34,18 +37,17 @@ export default function ProductForm() {
     })
   }
 
-  const productHandler =async (event) => {
+  const productHandler = async (event) => {
     event.preventDefault();
-    if(id==0){
-      await addNewProduct(formData)
-      navigate('/products')
-    }else {
-      await updateProduct(id, formData)
-    navigate('/products')
+    if (id == 0) {
+      await dispatch(addProductAction(formData));
+      navigate("/products");
+    } else {
+      await dispatch(updateProductAction({ id, product: formData }));
+      navigate("/products");
     }
-    
-
-  }
+  };
+  
 
 
   return (
