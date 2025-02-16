@@ -42,10 +42,15 @@ export default function Checkout() {
       ) : (
         <>
           {cart.map((product) => (
-            <Card key={product.id} className="mb-3">
-              <Card.Body className="d-flex justify-content-between align-items-center">
+            <Card key={product.id} className="mb-3 w-100 ">
+              <Card.Body className="d-flex align-items-center">
+              <img className="me-3"
+                  src={product.imgUrl}
+                  alt={product.name}
+                  style={{ width: "150px", height: "150px", objectFit: "cover" }}
+                />
                 <div>
-                  <Card.Title>{product.name}</Card.Title>
+                  <Card.Title className="mb-3">{product.name}</Card.Title>
                   <Card.Text>
                     <span className="fw-bold">Price:</span> {product.price} $
                   </Card.Text>
@@ -53,18 +58,14 @@ export default function Checkout() {
                     <span className="fw-bold">Quantity:</span> {product.quantity}
                   </Card.Text>
                 </div>
-                <img
-                  src={product.imgUrl}
-                  alt={product.name}
-                  style={{ width: "100px", height: "100px", objectFit: "cover" }}
-                />
+                
               </Card.Body>
             </Card>
           ))}
-          <div>Total Price: {totalPrice} $</div>
+          <div className=" text-success total-price"> <span className=" fw-bold fs-5 text-warning">Total Price:</span> <span className="price">{totalPrice} $</span></div>
           <div className="d-flex justify-content-around my-5">
-            <button className="btn btn-success" onClick={placeOrder}>Place Order</button>
-            <button className="btn btn-danger px-4" onClick={cancel}>Cancel</button>
+            <button className="btn btn-success px-4 py-2 fw-bold" onClick={placeOrder}>Place Order</button>
+            <button className="btn btn-danger px-4 fw-bold" onClick={cancel}>Cancel</button>
           </div>
         </>
       )}
