@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { FaSadTear, FaStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { getAllProducts } from '../api/productApi';
-import HeroSection from "../components/Hero.jsx";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProductsAction } from '../store/productSlice.js';
+import { addToCartAction } from '../store/cartSlice.js';
 
 export default function Home() {
 
@@ -25,18 +24,18 @@ export default function Home() {
       <h1 className='text-center mb-5 fw-bold'>Our Products</h1>
       <div className="row">
           {products.map((product) => (
-            <Card className='mb-4 mx-2 p-3' style={{ width: '25rem' }}>
+            <Card className='mb-4 mx-2 p-3' style={{ width: '25rem' }} key={product.id}>
                 <Card.Img variant="top" src={product.imgUrl} className='img-fluid' style={{height:"250px"}}/>
                 <Card.Body>
-                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Title><div className='fs-3 mb-3 fw-bold'>{product.name.charAt(0).toUpperCase() + product.name.slice(1).toLowerCase()}</div> </Card.Title>
                     <Card.Text>
-                    Price: {product.price} <span style={{color:'darkgreen'}}>$</span>
+                    <span className='fw-bold fs-5 me-1 '>Price:</span> {product.price} <span style={{color:'darkgreen'}}>$</span>
                     </Card.Text>
                     <Card.Text>
-                    Category: {product.category}
+                    <span className='fw-bold fs-5 me-1 '>Category:</span> {product.category.charAt(0).toUpperCase() + product.category.slice(1).toLowerCase()}
                     </Card.Text>
                     <Card.Text>
-                    Quantity: {product.quantity}
+                    <span className='fw-bold fs-5 me-1 '>Available Quantity:</span> {product.quantity}
                     </Card.Text>
                     <Card.Text>
                      
@@ -48,11 +47,13 @@ export default function Home() {
                     </Card.Text>
 
                     <div className='d-flex justify-content-between'>
-                    <Link to={`/products/${product.id}/edit`}>
-                    <Button  variant="primary" className='btn btn-success fw-bold'>Add To Cart</Button>
-                    </Link>
                     
-                    <Link to={`/products/${product.id}/edit`}>
+                    <Button  variant="primary" className='btn btn-success fw-bold' onClick={()=>{
+                        dispatch(addToCartAction(product));
+                    }}>Add To Cart</Button>
+                    
+                    
+                    <Link to={`/products/${product.id}`}>
                     <Button  variant="primary" className='btn btn-warning fw-bold'>Product Details</Button>
                     </Link>
 

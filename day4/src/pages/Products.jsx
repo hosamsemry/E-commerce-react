@@ -19,22 +19,7 @@ export default function Products() {
   useEffect(() => {
     dispatch(getAllProductsAction());
   }, [dispatch]);
-  // let [products, setProducts] = useState([])
-  // let [errors, setErrors] = useState(null)
-
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       let response = await getAllProducts();
-  //       setProducts(response.data);
-  //     } catch (error) {
-  //       setErrors(error);
-  //     }
-  //   };
-  
-  //   fetchProducts(); 
-  // }, []);
-  
+    
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {
@@ -50,7 +35,7 @@ export default function Products() {
   }
 
   return (
-    <div className='products-page'>
+    <div className='products-page' style={{marginTop:'56px'}}>
       <Link to='/'>
         <button className='btn btn-primary m-5'>Back To Shop</button> 
       </Link>
