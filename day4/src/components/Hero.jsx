@@ -2,6 +2,7 @@ import '../assets/css/hero.css';
 import heroBg from '../assets/images/hero-bg.png';
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FaRegGrinWink } from "react-icons/fa";
 
 function HeroSection() {
 return (
@@ -14,7 +15,7 @@ return (
                         The Green Basket
                         </h1>
                         <p className='fw-bold '>
-                            We Provide fresh Fruits And Vegetables EveryDay <br/> And Free Delivery
+                            We Provide fresh Fruits And Vegetables EveryDay <br/> And Free Delivery. <FaRegGrinWink className='text-dark fs-2 '/>
                         </p>
                         <button className='btn btn-primary fw-bold ' onClick={()=>{
                             window.scrollTo({

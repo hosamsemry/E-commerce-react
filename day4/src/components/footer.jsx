@@ -5,7 +5,7 @@ import { faFacebook, faTwitter, faLinkedin, faInstagram, faYoutube } from '@fort
 
 function Info () {
     return(
-        <section className="info_section layout_padding2  ">
+        <section className="info_section layout_padding2 className='fixed-bottom' ">
         <div className="container">
           <div className="row">
             <div className="col-md-6 col-lg-3 info_col">
