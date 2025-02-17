@@ -22,6 +22,9 @@ export const removeFromCartAction = createAsyncThunk("cart/removeFromCartAction"
 })
 
 export const decreaseQuantityAction = createAsyncThunk("cart/decreaseQuantityAction",async ({ id, quantity }, { rejectWithValue }) => {
+      if (quantity <= 1) {
+        return { id, quantity: 0 };
+    }
       try {
         const response = await fetch(`http://localhost:3001/products/${id}`, {
           method: "PATCH",
@@ -39,6 +42,24 @@ export const decreaseQuantityAction = createAsyncThunk("cart/decreaseQuantityAct
       }
     }
   );
+
+export const increaseQuantityAction = createAsyncThunk("cart/increaseQuantityAction", async ({ id, quantity }, { rejectWithValue }) => {
+  try {
+    const response = await fetch(`http://localhost:3001/products/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quantity: quantity + 1 }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to update quantity");
+    }
+
+    return { id, quantity: quantity + 1 };
+  } catch (error) {
+      return rejectWithValue(error.message);
+}
+})
    
 
 const cartSlice = createSlice({
@@ -87,8 +108,15 @@ const cartSlice = createSlice({
                 }
                 }
           });
+          builder.addCase(increaseQuantityAction.fulfilled, (state, action) => {
+                const product = state.cart.find((p) => p.id === action.payload.id);
+                if (product) {
+                    product.quantity = action.payload.quantity;
+                }
+            })
+
     },
 })
 
-export const { addToCart, removeFromCart, decreaseQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseQuantity, increaseQuantity } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
