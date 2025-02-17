@@ -11,6 +11,7 @@ import AboutSection from '../pages/about'
 import CheckOut from '../pages/checkOut'
 import Landing from '../pages/landing'
 import Register from '../pages/Register'
+import Login from '../pages/Login'
 
 export default function MainLayout() {
   return (
@@ -19,6 +20,7 @@ export default function MainLayout() {
         <Routes>
           <Route path='/' element={<SharedLayout />} >
           <Route path='register' element={<Register />} />
+          <Route path='login' element={<Login />} />
             <Route index element={<><HeroSection /><Landing /></>} />
             <Route path='shop' element={<Home/>}/>
             <Route path='products' element={<Products />} />

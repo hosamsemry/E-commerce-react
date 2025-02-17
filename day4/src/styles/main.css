@@ -50,21 +50,23 @@
 }
 
 /* register */
-.register-full-page{
+.register-full-page,
+.login-full-page {
     background-image: url(../assets/images/green-bg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     height: 75vh;
 }
 
-.register {
+.register,.login {
     background-color: rgba(255, 255, 255, 0.781);
     border-radius: 20px;
     width: 40% !important;
 }
 
 @media only screen and (max-width: 1000px) {
-    .register {
+    .register,.login {
         width: 75% !important;
     }
 }
+

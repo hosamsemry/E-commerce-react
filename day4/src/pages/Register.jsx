@@ -119,9 +119,13 @@ export default function Register() {
                 </FloatingLabel>
               </Form.Group>
 
-              <Button variant="primary" type="submit" className='mt-2'>
+              <Button variant="primary" type="submit" className='mt-2 w-100'>
                 Register
               </Button>
+
+              <Form.Text >
+                <p className='mt-2 fs-6'>Already have an account? <a href='/login'>Login Now</a></p>
+              </Form.Text>
             </Form>
           </div>
           </div>
