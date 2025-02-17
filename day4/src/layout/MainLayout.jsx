@@ -9,6 +9,7 @@ import SharedLayout from '../sharedLayout/SharedLayout'
 import HeroSection from '../components/Hero'
 import AboutSection from '../pages/about'
 import CheckOut from '../pages/checkOut'
+import Landing from '../pages/landing'
 
 export default function MainLayout() {
   return (
@@ -16,7 +17,8 @@ export default function MainLayout() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<SharedLayout />} >
-            <Route index element={<><HeroSection /><Home /></>} />
+            <Route index element={<><HeroSection /><Landing /></>} />
+            <Route path='shop' element={<Home/>}/>
             <Route path='products' element={<Products />} />
             <Route path='products/:id' element={<ProductDetails />} />
             <Route path='products/:id/edit' element={<ProductForm />} />            

@@ -85,12 +85,12 @@ export default function Products() {
                     <img src={product.imgUrl} alt={product.name} style={{width:"50px", height:"50px"}}/>
                   </td>
                   <td>
-                    <div className='d-flex justify-content-around action-icons'>
+                    <div className='d-flex justify-content-around align-items-center action-icons p-2'>
                       <Link to={`/products/${product.id}`}>
-                        <GrView className='text-info fs-5' style={{cursor:"pointer"}}/>
+                        <GrView className='text-info fs-4' style={{cursor:"pointer"}}/>
                       </Link>
                       <Link to={`/products/${product.id}/edit`}>
-                        <FaEdit className='text-light fs-5' style={{cursor:"pointer"}}/>
+                        <FaEdit className='text-light fs-4' style={{cursor:"pointer"}}/>
                       </Link>
                       <MdDelete className='text-danger fs-3' style={{cursor:"pointer"}} onClick={()=> deleteHandler(product.id)}/>
                     </div>

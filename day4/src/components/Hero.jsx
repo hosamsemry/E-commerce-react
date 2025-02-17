@@ -3,6 +3,7 @@ import heroBg from '../assets/images/hero-bg.png';
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaRegGrinWink } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 function HeroSection() {
 return (
@@ -17,14 +18,13 @@ return (
                         <p className='fw-bold '>
                             We Provide fresh Fruits And Vegetables EveryDay <br/> And Free Delivery. <FaRegGrinWink className='text-dark fs-2 '/>
                         </p>
+                        <Link to={`/shop`}>
                         <button className='btn btn-primary fw-bold ' onClick={()=>{
-                            window.scrollTo({
-                                top: window.innerHeight,
-                                behavior: 'smooth'
-                            });
+                            
                         }}>
                             Shop Now
                         </button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,10 @@
+*{
+    font-family: 'Lucida Sans Unicode'
+}
+
 .hero{
     position: relative;
-    height: calc(100vh - 56px);
+    height: 100vh;
     width: 100%;
     background-size: cover;
     background-position: center;
