@@ -39,7 +39,6 @@ export default function Register() {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-      // Submit form
       console.log('Form submitted', formData);
     } else {
       setErrors(validationErrors);
@@ -50,7 +49,7 @@ export default function Register() {
     <div className='register-full-page mt-5'>
       <div className='container '>
         <div className="row d-flex justify-content-center">
-          <div className="register mt-5 p-3 py-4" style={{ width: '40%' }}>
+          <div className="register mt-5 p-3 py-4 " >
             <h2 className='text-center fw-bold p-1 mb-4'>Register</h2>
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicUsername">
@@ -121,7 +120,7 @@ export default function Register() {
               </Form.Group>
 
               <Button variant="primary" type="submit" className='mt-2'>
-                Submit
+                Register
               </Button>
             </Form>
           </div>

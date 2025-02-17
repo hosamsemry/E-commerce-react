@@ -54,11 +54,17 @@
     background-image: url(../assets/images/green-bg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 75vh;
 }
 
 .register {
-    box-shadow: 0px 0px 50px 1px  rgba(189, 189, 189, 0.226);
-    background-color: rgba(255, 255, 255, 0.849);
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.781);
+    border-radius: 20px;
+    width: 40% !important;
+}
+
+@media only screen and (max-width: 1000px) {
+    .register {
+        width: 75% !important;
+    }
 }
