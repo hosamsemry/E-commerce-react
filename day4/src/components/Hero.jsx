@@ -16,7 +16,7 @@ return (
                         The Green Basket
                         </h1>
                         <p className='fw-bold '>
-                            We Provide fresh Fruits And Vegetables EveryDay <br/> And Free Delivery. <FaRegGrinWink className='text-dark fs-2 '/>
+                            We Provide Fresh Fruits And Vegetables EveryDay <br/> And Free Delivery As Well. <FaRegGrinWink className='text-dark fs-2 '/>
                         </p>
                         <Link to={`/shop`}>
                         <button className='btn btn-primary fw-bold ' onClick={()=>{
