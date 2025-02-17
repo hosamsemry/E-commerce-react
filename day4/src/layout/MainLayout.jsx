@@ -12,6 +12,7 @@ import CheckOut from '../pages/checkOut'
 import Landing from '../pages/landing'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
+import OrderShipped from '../pages/OrderShipped'
 
 export default function MainLayout() {
   return (
@@ -27,6 +28,7 @@ export default function MainLayout() {
             <Route path='products/:id' element={<ProductDetails />} />
             <Route path='products/:id/edit' element={<ProductForm />} />            
             <Route path='/checkout' element={<CheckOut />} />            
+            <Route path='/ordershipped' element={<OrderShipped />} />            
             <Route path='/about' element={<AboutSection />} />
             <Route path='*' element={<NotFound />} />
           </Route>
