@@ -31,10 +31,44 @@ export const registerUser = createAsyncThunk('users/registerUser', async(userDat
     }
 );
 
+export const loginUser = createAsyncThunk('users/loginUser', async(userData, {rejectWithValue}) => {
+    try {
+        const response = await getAllUsers();
+        const users = response.data || [];
+  
+        const user = users.find((user) => user.email === userData.email);
+        if (!user || user.password !== userData.password) {
+          return rejectWithValue("Invalid email or password!");
+        }
+  
+        localStorage.setItem("user", JSON.stringify(user));
+        return user;
+    }catch (error) {
+        return rejectWithValue(error.message);
+      }
+    }
+);
+
+
 const authSlice = createSlice({
     name:"auth",
     initialState,
-    reducers:{},
+    reducers:{
+      logout: (state) => {
+        localStorage.removeItem("user");
+        state.user = null;
+        state.isAuthenticated = false;
+        state.error = null;
+    },
+      loadUser: (state) => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+            state.user = user;
+            state.isAuthenticated = true;
+        }
+    }
+
+    },
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state, action) => {
             state.loading = true;
@@ -47,8 +81,21 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         });
+        builder.addCase(loginUser.pending, (state, action) => {
+            state.loading = true;
+        });
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = action.payload;
+        });
+        builder.addCase(loginUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        });
     }
     
 });
 
+
+export const { logout, loadUser } = authSlice.actions;
 export default authSlice.reducer;
