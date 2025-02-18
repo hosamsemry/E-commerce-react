@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Home from '../pages/Home'
 import Products from '../pages/Products'
 import ProductForm from '../pages/ProductForm'
@@ -13,8 +13,17 @@ import Landing from '../pages/landing'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
 import OrderShipped from '../pages/OrderShipped'
+import { useDispatch } from 'react-redux'
+import { loadUser } from '../store/userSlice'
 
 export default function MainLayout() {
+
+  const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadUser());
+    }, [dispatch]);
+
   return (
     <div>
       <BrowserRouter>
