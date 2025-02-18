@@ -38,9 +38,7 @@ export default function Login() {
         }
     }
 
-    if (isAuthenticated) {
-        navigate('/');
-    }
+    
 
   return (
     <div className="login-full-page mt-5">

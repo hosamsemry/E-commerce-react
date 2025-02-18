@@ -12,7 +12,12 @@ export default function Header() {
 
   const cart = useSelector((store) => store.cartReducer.cart);
   const count = cart.length;
+  const user = JSON.parse(localStorage.getItem("user"));
 
+  const handleLogout = () => {
+    localStorage.clear();
+    
+  };
 
   return (
     <div className='fixed-top'>
@@ -22,11 +27,23 @@ export default function Header() {
           <Nav className=" pe-3">
             <NavLink className={({ isActive }) => isActive ? "text-success nav-link" : "nav-link text-white"} to="/">Home</NavLink>
             <NavLink className={({ isActive }) => isActive ? "text-success nav-link" : "nav-link text-white"} to="/shop">Shop</NavLink>
-            <NavLink className={({ isActive }) => isActive ? "text-success nav-link" : "nav-link text-white"} to="/products">Products</NavLink>
-            <NavLink className={({ isActive }) => isActive ? "text-success nav-link" : "nav-link text-white"} to="/about">About</NavLink>
+            {user && user.role === 'admin' &&
+            <NavLink className={({ isActive }) => isActive ? "text-success nav-link" : "nav-link text-white"} to="/products">Dashboard</NavLink>
+            }
+            
+            {user &&
             <NavLink className={"shopping-cart d-flex justify-content-between ms-1"} to="/checkout"> <TiShoppingCart /> <span className='text-decoration-none'>({count})</span></NavLink>
+            }
+            
+            {user && 
+          <NavLink className='ms-2 mt-2 text-light text-decoration-none' to="/login" onClick={handleLogout}>logout</NavLink>
+          }
+          {!user &&
+          <NavLink className='ms-2 mt-2 text-light text-decoration-none' to="/login">login</NavLink>
+          }
           </Nav>
-        
+          
+
       </Navbar>
     </div>
   )

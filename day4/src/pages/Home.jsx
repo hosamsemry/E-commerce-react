@@ -12,6 +12,7 @@ export default function Home() {
 
   const {products,isLoading,errors} = useSelector((store)=> store.productSlice)
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     dispatch(getAllProductsAction());
@@ -48,9 +49,11 @@ export default function Home() {
 
                     <div className='d-flex justify-content-between'>
                     
+                    {user &&
                     <Button  variant="primary" className='btn btn-success fw-bold' onClick={()=>{
                         dispatch(addToCartAction(product));
                     }}>Add To Cart</Button>
+                    }
                     
                     
                     <Link to={`/products/${product.id}`}>

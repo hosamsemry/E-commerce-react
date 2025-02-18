@@ -17,14 +17,25 @@ export default function ProductDetails() {
         setProduct(products.find(product => product.id == id))
     }, [id])
 
+    const user = JSON.parse(localStorage.getItem('user'));
+
+  
   return (
     
     <div className='mb-5' style={{marginTop:'56px'}}>
-        <Link to='/products'>
-            <button className='btn btn-primary m-4'>Back To Dashboard</button> 
-        </Link>
+        
 
         <div className='container  p-5'>
+            {user && user.role === 'admin' &&
+                <Link to='/products'>
+                    <button className='btn btn-primary m-4'>Back To Dashboard</button> 
+                </Link>
+            }
+            {!user || user.role === 'customer' &&
+                <Link to='/shop'>
+                    <button className='btn btn-primary m-4'>Back To Shop</button> 
+                </Link>
+            }
             <h1 className='text-center fw-bold productHeading col-4 offset-4'>Product Details</h1>
         </div>
 
@@ -52,14 +63,16 @@ export default function ProductDetails() {
                      <FaStar className='text-warning fs-5 '/>
                      <FaStar className='text-warning fs-5 '/>
                     </Card.Text>
-                    
+                    {user && user.role === 'admin' && 
                     <Link to={`/products/${product.id}/edit`}>
                     <Button  variant="primary" className='btn btn-warning fw-bold'>Edit Product</Button>
                     </Link>
+                    }
                 </Card.Body>
             </Card>
         </div>
         </div>
     </div>
   )
+
 }

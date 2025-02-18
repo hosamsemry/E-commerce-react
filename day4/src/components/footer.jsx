@@ -57,20 +57,14 @@ function Info () {
                   Links
                 </h4>
                 <div className="info_links">
-                  <a className="active" href="index.html">
-                    Home
-                  </a>
-                  <a className="" href="about.html">
+                  <a className="" href="about">
                     About
                   </a>
-                  <a className="" href="service.html">
+                  <a className="" href="service">
                     Services
                   </a>
-                  <a className="" href="why.html">
+                  <a className="" href="why">
                     Why Us
-                  </a>
-                  <a className="" href="team.html">
-                    Team
                   </a>
                 </div>
               </div>
