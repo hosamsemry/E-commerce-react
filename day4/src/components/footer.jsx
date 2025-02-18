@@ -60,8 +60,8 @@ function Info () {
                   <a className="" href="about">
                     About
                   </a>
-                  <a className="" href="service">
-                    Services
+                  <a className="" href="team">
+                    Team
                   </a>
                   <a className="" href="why">
                     Why Us

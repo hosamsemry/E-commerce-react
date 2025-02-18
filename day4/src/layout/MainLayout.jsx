@@ -15,6 +15,7 @@ import Login from '../pages/Login'
 import OrderShipped from '../pages/OrderShipped'
 import { useDispatch } from 'react-redux'
 import { loadUser } from '../store/userSlice'
+import Team from '../pages/Team'
 
 export default function MainLayout() {
 
@@ -39,6 +40,7 @@ export default function MainLayout() {
             <Route path='/checkout' element={<CheckOut />} />            
             <Route path='/ordershipped' element={<OrderShipped />} />            
             <Route path='/about' element={<AboutSection />} />
+            <Route path='/team' element={<Team />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
