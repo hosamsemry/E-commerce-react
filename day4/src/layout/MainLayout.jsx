@@ -16,6 +16,7 @@ import OrderShipped from '../pages/OrderShipped'
 import { useDispatch } from 'react-redux'
 import { loadUser } from '../store/userSlice'
 import Team from '../pages/Team'
+import WhyUs from '../pages/WhyUs'
 
 export default function MainLayout() {
 
@@ -41,6 +42,7 @@ export default function MainLayout() {
             <Route path='/ordershipped' element={<OrderShipped />} />            
             <Route path='/about' element={<AboutSection />} />
             <Route path='/team' element={<Team />} />
+            <Route path='/whyus' element={<WhyUs />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

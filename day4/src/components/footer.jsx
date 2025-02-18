@@ -63,7 +63,7 @@ function Info () {
                   <a className="" href="team">
                     Team
                   </a>
-                  <a className="" href="why">
+                  <a className="" href="whyus">
                     Why Us
                   </a>
                 </div>
