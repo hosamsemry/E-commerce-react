@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { useDispatch, useSelector } from "react-redux";
 import '../styles/main.css';
+import { registerUser } from '../store/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    role: 'customer'
   });
 
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,14 +40,16 @@ export default function Register() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length === 0) {
-      console.log('Form submitted', formData);
-    } else {
-      setErrors(validationErrors);
-    }
+
+    const newErrors = validate(); 
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+  }
+  dispatch(registerUser(formData));
+  navigate('/login');
   };
 
   return (
