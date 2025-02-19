@@ -15,7 +15,7 @@ export default function Login() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { loading, error, isAuthenticated } = useSelector((state) => state.auth);
+    const authState = useSelector((state) => state.auth);
 
     const handleChange = (e) => {
         setFormData({
@@ -25,17 +25,19 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(loginUser(formData));
-
+        
         if (formData.email === '' || formData.password === '') {
             return;
         }
-        if (formData.email === 'hosam@gmail.com'){
-            navigate('/products')
-        }else{
-
-            navigate('/');
-        }
+        dispatch(loginUser(formData)).then((result) => {
+            if (loginUser.fulfilled.match(result)) {  
+                if (result.payload.email === 'hosam@gmail.com') {
+                    navigate('/products');
+                } else {
+                    navigate('/');
+                }
+            }
+        });
     }
 
     

@@ -13,9 +13,31 @@ export default function Products() {
   const navigate = useNavigate();
   const {products,isLoading,errors} = useSelector((store)=> store.productSlice)
   const dispatch = useDispatch();
+const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('user')));
 
   useEffect(() => {
+    const handleStorageChange = () => {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }
+  , []);
+
+  useEffect(() => {
+    const checkUser= ()=>{
+      setUser(JSON.parse(localStorage.getItem('user')));  
+    };
+    checkUser();
+    
+  }, []);
+  useEffect(() => {
     dispatch(getAllProductsAction());
+    
   }, [dispatch]);
     
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,7 +53,7 @@ export default function Products() {
   const deleteHandler = async (id) => {
     dispatch(deleteProductAction(id));
   }
-  const user = JSON.parse(localStorage.getItem("user"));
+  // const user = JSON.parse(localStorage.getItem("user"));
 
   if (user && user.role === 'admin') {
   return (
@@ -105,8 +127,6 @@ export default function Products() {
       </div>
     
   );
-}else{
-  navigate('/')
 }
 
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -12,10 +12,34 @@ export default function Header() {
 
   const cart = useSelector((store) => store.cartReducer.cart);
   const count = cart.length;
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('user')));
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }
+  , []);
+
+  useEffect(() => {
+    const checkUser= ()=>{
+      setUser(JSON.parse(localStorage.getItem('user')));  
+    };
+    checkUser();
+    const interval = setInterval(checkUser, 500); 
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogout = () => {
     localStorage.clear();
+    setUser(null);
     
   };
 
