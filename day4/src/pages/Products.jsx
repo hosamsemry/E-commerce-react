@@ -53,7 +53,6 @@ const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('user')))
   const deleteHandler = async (id) => {
     dispatch(deleteProductAction(id));
   }
-  // const user = JSON.parse(localStorage.getItem("user"));
 
   if (user && user.role === 'admin') {
   return (

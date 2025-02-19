@@ -21,46 +21,56 @@ export const removeFromCartAction = createAsyncThunk("cart/removeFromCartAction"
     }
 })
 
-export const decreaseQuantityAction = createAsyncThunk("cart/decreaseQuantityAction",async ({ id, quantity }, { rejectWithValue }) => {
-      if (quantity <= 1) {
-        return { id, quantity: 0 };
-    }
-      try {
-        const response = await fetch(`http://localhost:3001/products/${id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ quantity: quantity - 1 }),
-        });
-  
-        if (!response.ok) {
-          throw new Error("Failed to update quantity");
-        }
-  
-        return { id, quantity: quantity - 1 };
-      } catch (error) {
-        return rejectWithValue(error.message);
+export const increaseQuantityAction = createAsyncThunk(
+  "cart/increaseQuantityAction",
+  async ({ id, quantity }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`http://localhost:3001/products/${id}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch product stock");
       }
-    }
-  );
 
-export const increaseQuantityAction = createAsyncThunk("cart/increaseQuantityAction", async ({ id, quantity }, { rejectWithValue }) => {
+      const product = await response.json();
+
+      if (quantity >= product.quantity) {
+        return rejectWithValue("Not enough stock available");
+      }
+
+      return { id };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
+export const decreaseQuantityAction = createAsyncThunk("cart/decreaseQuantityAction", async ({ id }, { rejectWithValue }) => {
   try {
-    const response = await fetch(`http://localhost:3001/products/${id}`, {
+    return { id };
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+   
+export const placeOrderAction = createAsyncThunk("cart/placeOrderAction", async (cart, { rejectWithValue }) => {
+  try {
+    for (const product of cart) {
+      const response = await fetch(`http://localhost:3001/products/${product.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quantity: quantity + 1 }),
-    });
+        body: JSON.stringify({ quantity: product.quantity - product.orderQuantity }),
+      });
 
-    if (!response.ok) {
-        throw new Error("Failed to update quantity");
+      if (!response.ok) {
+        throw new Error("Failed to update product quantity");
+      }
     }
-
-    return { id, quantity: quantity + 1 };
+    return cart.map((product) => ({ id: product.id }));
   } catch (error) {
-      return rejectWithValue(error.message);
-}
-})
-   
+    return rejectWithValue(error.message);
+  }
+});
+
 
 const cartSlice = createSlice({
     name: "cart",
@@ -99,21 +109,23 @@ const cartSlice = createSlice({
                 state.cart = state.cart.filter((product) => product.id !== action.payload.id);
             });
             
+            builder.addCase(increaseQuantityAction.fulfilled, (state, action) => {
+              const product = state.cart.find((p) => p.id === action.payload.id);
+              if (product) {
+                product.quantity += 1;
+              }
+            });
+        
             builder.addCase(decreaseQuantityAction.fulfilled, (state, action) => {
-                const product = state.cart.find((p) => p.id === action.payload.id);
-                if (product) {
-                product.quantity = action.payload.quantity;
-                if (product.quantity === 0) {
-                    state.cart = state.cart.filter((p) => p.id !== action.payload.id);
-                }
-                }
-          });
-          builder.addCase(increaseQuantityAction.fulfilled, (state, action) => {
-                const product = state.cart.find((p) => p.id === action.payload.id);
-                if (product) {
-                    product.quantity = action.payload.quantity;
-                }
-            })
+              const product = state.cart.find((p) => p.id === action.payload.id);
+              if (product && product.quantity > 0) {
+                product.quantity -= 1;
+              }
+            });
+        
+            builder.addCase(placeOrderAction.fulfilled, (state, action) => {
+              state.cart = [];
+            });
 
     },
 })

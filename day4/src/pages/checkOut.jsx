@@ -17,25 +17,27 @@ export default function Checkout() {
       navigate("/");
     }
     const placeOrder = () => {
-      cart.forEach((product) => {
-      dispatch(decreaseQuantityAction({ id: product.id, quantity: product.quantity }));
-      });
-      
-        cart.forEach((product) => {
-        dispatch(removeFromCart(product));
-      });
-      navigate("/");
-      };
+      dispatch(placeOrderAction(cart));
+      navigate("/ordershipped");
+    };
 
     const totalPrice = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
 
     const increaseQuantity = (product) => {
-      dispatch(increaseQuantityAction({ id: product.id, quantity: product.quantity }));
-  };
-
-  const decreaseQuantity = (product) => {
-      dispatch(decreaseQuantityAction({ id: product.id, quantity: product.quantity }));
-  };
+      dispatch(increaseQuantityAction({ id: product.id, quantity: product.quantity }))
+        .unwrap()
+        .catch((error) => {
+          alert(error); 
+        });
+    };
+    
+    
+    const decreaseQuantity = (product) => {
+      dispatch(decreaseQuantityAction({ id: product.id }));
+      if (product.quantity === 1) {
+        dispatch(removeFromCart(product));
+      }
+    };
 
   return (
   <div className="container mb-3 checkout-page" style={{marginTop:'86px'}}>
