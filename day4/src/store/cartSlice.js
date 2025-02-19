@@ -55,21 +55,36 @@ export const decreaseQuantityAction = createAsyncThunk("cart/decreaseQuantityAct
 export const placeOrderAction = createAsyncThunk("cart/placeOrderAction", async (cart, { rejectWithValue }) => {
   try {
     for (const product of cart) {
-      const response = await fetch(`http://localhost:3001/products/${product.id}`, {
+      const response = await fetch(`http://localhost:3001/products/${product.id}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch product data");
+      }
+      
+      const dbProduct = await response.json(); 
+      
+      const updatedQuantity = dbProduct.quantity - product.quantity;
+
+      if (updatedQuantity < 0) {
+        return rejectWithValue(`Not enough stock for product: ${product.name}`);
+      }
+
+      const updateResponse = await fetch(`http://localhost:3001/products/${product.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quantity: product.quantity - product.orderQuantity }),
+        body: JSON.stringify({ quantity: updatedQuantity }),
       });
 
-      if (!response.ok) {
+      if (!updateResponse.ok) {
         throw new Error("Failed to update product quantity");
       }
     }
+    
     return cart.map((product) => ({ id: product.id }));
   } catch (error) {
     return rejectWithValue(error.message);
   }
 });
+
 
 
 const cartSlice = createSlice({

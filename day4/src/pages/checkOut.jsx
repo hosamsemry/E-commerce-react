@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { decreaseQuantityAction, increaseQuantityAction, removeFromCart } from "../store/cartSlice";
+import { decreaseQuantityAction, increaseQuantityAction, placeOrderAction, removeFromCart } from "../store/cartSlice";
 import "../styles/main.css";
 
 export default function Checkout() {
