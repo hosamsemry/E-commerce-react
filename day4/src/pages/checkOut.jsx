@@ -4,6 +4,8 @@ import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { decreaseQuantityAction, increaseQuantityAction, placeOrderAction, removeFromCart } from "../store/cartSlice";
 import "../styles/main.css";
+import Swal from 'sweetalert2'
+
 
 export default function Checkout() {
     const cart = useSelector((store) => store.cartReducer.cart);
@@ -14,7 +16,7 @@ export default function Checkout() {
       cart.forEach(product => {
       dispatch(removeFromCart(product))
       });
-      navigate("/");
+      navigate("/shop");
     }
     const placeOrder = () => {
       dispatch(placeOrderAction(cart));
@@ -27,7 +29,11 @@ export default function Checkout() {
       dispatch(increaseQuantityAction({ id: product.id, quantity: product.quantity }))
         .unwrap()
         .catch((error) => {
-          alert(error); 
+          Swal.fire({
+            title: error,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         });
     };
     

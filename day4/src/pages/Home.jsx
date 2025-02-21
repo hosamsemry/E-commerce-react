@@ -7,6 +7,7 @@ import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProductsAction } from '../store/productSlice.js';
 import { addToCartAction } from '../store/cartSlice.js';
+import Swal from 'sweetalert2';
 
 export default function Home() {
 
@@ -51,21 +52,16 @@ export default function Home() {
 
   return (
     <>
-    {/* <input type="text" 
-            placeholder='Search for products' 
-            className='col-8 offset-2 search' 
-            value={searchTerm}
-            onChange={handleSearch}/>  */}
-            <form className="d-flex search-box col-8 offset-2">
-                    <div className="input-group">
-                        <input type="search" className="form-control " value={searchTerm}
-                          onChange={handleSearch} placeholder="Search for items..."/>
-                        
-                        <button className="btn btn-success" type="submit">
-                        <FaSearch />
-                        </button>
-                    </div>
-                </form>
+    <form className="d-flex search-box col-8 offset-2">
+            <div className="input-group">
+                <input type="search" className="form-control " value={searchTerm}
+                  onChange={handleSearch} placeholder="Search for items..."/>
+                
+                <button className="btn btn-success" type="submit">
+                <FaSearch />
+                </button>
+            </div>
+        </form>
 
     <div className='container my-5 bg-light p-5'>
 
@@ -98,7 +94,12 @@ export default function Home() {
                     
                     {user &&
                     <Button  variant="primary" className='btn btn-success fw-bold' onClick={()=>{
-                        dispatch(addToCartAction(product));
+                        dispatch(addToCartAction(product))
+                        Swal.fire({
+                              title: `Product Added To Cart `,
+                              icon: 'success',
+                              confirmButtonText: 'OK'
+                            });
                     }}>Add To Cart</Button>
                     }
                     

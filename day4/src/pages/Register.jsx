@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import '../styles/main.css';
 import { registerUser } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -49,6 +50,11 @@ export default function Register() {
       return;
   }
   dispatch(registerUser(formData));
+  Swal.fire({
+            title: `Registered successfully`,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
   navigate('/login');
   };
 

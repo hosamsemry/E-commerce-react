@@ -4,6 +4,10 @@
     
 }
 
+.table {
+    height: 80vh;
+}
+
 .product-form{
     border: 1px solid #0000006b;
     padding: 15px;
@@ -52,14 +56,12 @@
 /* register */
 .register-full-page,
 .login-full-page {
-    background-image: url(../assets/images/green-bg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+    
     height: 75vh;
 }
 
 .register,.login {
-    background-color: rgba(255, 255, 255, 0.781);
+    background-color: rgba(211, 211, 211, 0.616);
     border-radius: 20px;
     width: 40% !important;
 }

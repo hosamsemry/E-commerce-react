@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { TiShoppingCart } from "react-icons/ti";
 import "../styles/main.css";
 import { useSelector } from 'react-redux';
-
+import Swal from 'sweetalert2';
 
 export default function Header() {
 
@@ -40,6 +40,11 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.clear();
     setUser(null);
+    Swal.fire({
+      title: `Logged out Successfully `,
+      icon: 'success',
+      confirmButtonText: 'OK'
+    });
     
   };
 

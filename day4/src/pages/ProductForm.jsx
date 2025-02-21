@@ -6,6 +6,9 @@ import { addNewProduct, getProductById, updateProduct } from '../api/productApi'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addProductAction, updateProductAction } from '../store/productSlice';
+import Swal from 'sweetalert2'
+
+
 
 export default function ProductForm() {
   const dispatch = useDispatch();
@@ -41,17 +44,19 @@ export default function ProductForm() {
     });
   };
 
-  // Form validation function
   const validateForm = () => {
     let errors = {};
     if (!formData.name.trim()) errors.name = "Product Name is required";
-    if (!formData.price.trim() || isNaN(formData.price) || formData.price <= 0) 
+    if (!String(formData.price).trim() || isNaN(formData.price) || formData.price <= 0) 
       errors.price = "Valid Product Price is required";
-    if (!formData.quantity.trim() || isNaN(formData.quantity) || formData.quantity <= 0) 
+    if (!String(formData.quantity).trim() || isNaN(formData.quantity) || formData.quantity <= 0) 
       errors.quantity = "Valid Product Quantity is required";
-    if (!formData.category.trim()) errors.category = "Product Category is required";
-    if (!formData.imgUrl.trim() || !/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i.test(formData.imgUrl)) 
-      errors.imgUrl = "Valid Image URL is required (jpg, jpeg, png, gif, webp)";
+    if (!formData.category.trim())      
+      errors.category = "Product Category is required";
+    if (!formData.imgUrl.trim())
+      errors.imgUrl = "Product Image URL is required";
+
+    
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -63,9 +68,19 @@ export default function ProductForm() {
 
     if (id == 0) {
       await dispatch(addProductAction(formData));
+      Swal.fire({
+                title: `Product Added Successfully`,
+                icon: 'success',
+                confirmButtonText: 'OK'
+              });
       navigate("/products");
     } else {
       await dispatch(updateProductAction({ id, product: formData }));
+      Swal.fire({
+        title: `Product Updated Successfully`,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
       navigate("/products");
     }
   };

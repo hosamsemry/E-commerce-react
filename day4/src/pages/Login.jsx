@@ -4,7 +4,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../store/userSlice';
-
+import Swal from 'sweetalert2'
 
 export default function Login() {
 
@@ -32,8 +32,18 @@ export default function Login() {
         dispatch(loginUser(formData)).then((result) => {
             if (loginUser.fulfilled.match(result)) {  
                 if (result.payload.email === 'hosam@gmail.com') {
+                    Swal.fire({
+                        title: `Hi Admin `,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                      });
                     navigate('/products');
                 } else {
+                    Swal.fire({
+                        title: `Welcom to our shop `,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                      });
                     navigate('/');
                 }
             }
