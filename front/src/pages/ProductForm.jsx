@@ -55,6 +55,8 @@ export default function ProductForm() {
       errors.category = "Product Category is required";
     if (!formData.imgUrl.trim())
       errors.imgUrl = "Product Image URL is required";
+    if (!formData.description.trim())
+      errors.description = "Product Description is required";
 
     
 
@@ -104,6 +106,19 @@ export default function ProductForm() {
               type="text" 
               placeholder="Enter Product Name"
               isInvalid={!!formErrors.name}
+            />
+            <Form.Control.Feedback type="invalid">{formErrors.name}</Form.Control.Feedback>
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="productDescription">
+            <Form.Label>Product Description</Form.Label>
+            <Form.Control 
+              name='description'
+              value={formData.description}               
+              onChange={inputHandler} 
+              type="text" 
+              placeholder="Enter Product Description"
+              isInvalid={!!formErrors.description}
             />
             <Form.Control.Feedback type="invalid">{formErrors.name}</Form.Control.Feedback>
           </Form.Group>

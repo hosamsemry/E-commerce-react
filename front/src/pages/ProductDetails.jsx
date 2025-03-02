@@ -45,8 +45,11 @@ export default function ProductDetails() {
         <div className="row d-flex justify-content-center">
             <Card className='pt-3' style={{ width: '25rem' }}>
                 <Card.Img variant="top" src={product?.imgUrl}/>
-                <Card.Body>
-                    <Card.Title><span className='fw-bold fs-5'>Name :</span> {product.name}</Card.Title>
+                <Card.Body className='fs-4'>
+                    <Card.Title><span className='fw-bold fs-4'>Name :</span> {product.name}</Card.Title>
+                    <Card.Text>
+                    <span className='fw-bold fs-5'> Description :</span> {product.description}
+                    </Card.Text>
                     <Card.Text>
                     <span className='fw-bold fs-5'> Price :</span> {product.price}  <span style={{color:'darkgreen'}}>$</span>
                     </Card.Text>

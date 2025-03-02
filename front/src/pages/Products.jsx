@@ -88,6 +88,7 @@ const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('user')))
                 <tr>
                   <th>id</th>
                   <th>Product Name</th>
+                  <th style={{maxWidth:"200px"}}>Product Description</th>
                   <th>Product Price</th>
                   <th>Product Quantity</th>
                   <th>Product Category</th>
@@ -100,6 +101,7 @@ const [user, setUser] = React.useState(JSON.parse(localStorage.getItem('user')))
                   <tr key={product.id}>
                     <td>{product.id}</td>
                     <td>{product.name}</td>
+                    <td style={{maxWidth:"200px"}}>{product.description}</td>
                     <td>{product.price} <span style={{color:"lightgreen"}}>$</span></td>
                     <td>{product.quantity}</td>
                     <td>{product.category}</td>
