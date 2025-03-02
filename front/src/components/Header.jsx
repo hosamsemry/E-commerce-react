@@ -51,7 +51,6 @@ export default function Header({ onCategorySelect }) {
       <Navbar className='ps-3 d-flex justify-content-between' data-bs-theme="dark" style={{ backgroundColor: "#000" }}>
         <Navbar.Brand href="/" style={{ color: "gold", fontWeight: "bold", fontSize: "1.5rem" }}>QuickShop</Navbar.Brand>
         <Nav className="pe-3 fw-bold">
-          <NavLink className={({ isActive }) => isActive ? "text-info nav-link" : "nav-link text-warning"} to="/">Home</NavLink>
           <NavLink className={({ isActive }) => isActive ? "text-info nav-link" : "nav-link text-warning"} to="/shop">Shop</NavLink>
           {user && user.role === 'admin' &&
             <NavLink className={({ isActive }) => isActive ? "text-info nav-link" : "nav-link text-warning"} to="/products">Dashboard</NavLink>
