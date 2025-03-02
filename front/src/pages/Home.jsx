@@ -84,6 +84,11 @@ export default function Home({ scrollToCategory }) {
       </form>
 
       <div className='container my-5 bg-light p-5'>
+      {filteredProducts.length === 0 && (
+          <div className="text-center mt-5" style={{height: '50vh'}}>
+            <h2 className="fw-bold">No matching items found</h2>
+          </div>
+        )}
         {categories.map(category => {
           const categoryProducts = filteredProducts.filter(product => product.category === category);
           if (categoryProducts.length === 0) return null;
