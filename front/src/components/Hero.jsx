@@ -39,7 +39,7 @@ function HeroSection() {
                                 <div className="detail-box">
                                     <h1>QuickShop</h1>
                                     <p className='fw-bold'>
-                                        Fresh groceries, trendy clothes, and the latest electronics. <br/> All in one place! <FaRegGrinWink className='fs-2 '/>
+                                        Fresh groceries, trendy clothes, and the latest electronics. All in one place! 
                                     </p>
                                     <Link to={`/shop`}>
                                         <button className='btn btn-primary my-2 fw-bold'>
@@ -60,7 +60,7 @@ function HeroSection() {
                                 <div className="detail-box">
                                     <h1>QuickShop</h1>
                                     <p className='fw-bold'>
-                                        Shop the best in fashion, food, and electronics. <br/> Quality and convenience guaranteed! <FaRegGrinWink className='fs-2 '/>
+                                        Shop the best in fashion, food, and electronics. <br/> Quality and convenience guaranteed! 
                                     </p>
                                     <Link to={`/shop`}>
                                         <button className='btn btn-primary my-2 fw-bold'>

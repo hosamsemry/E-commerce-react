@@ -72,7 +72,7 @@ export default function Home({ scrollToCategory }) {
         <div className="input-group">
           <input type="search" className="form-control" value={searchTerm}
             onChange={handleSearch} placeholder="Search for items..." />
-          <DropdownButton id="dropdown-basic-button" title="Categories" className="custom-dropdown">
+          <DropdownButton id="dropdown-basic-button" title={selectedCategory ? selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1) : "Categories"} className="custom-dropdown">
             <Dropdown.Item onClick={() => handleCategorySelect('groceries')}>Groceries</Dropdown.Item>
             <Dropdown.Item onClick={() => handleCategorySelect('electronics')}>Electronics</Dropdown.Item>
             <Dropdown.Item onClick={() => handleCategorySelect('clothes')}>Clothes</Dropdown.Item>
