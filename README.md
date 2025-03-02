@@ -1,6 +1,6 @@
-# The Green Basket
+# QuickShop
 
-The Green Basket is a simple e-commerce web application built using **React, Redux Toolkit, and React Bootstrap**. It allows users to browse products, manage their carts, and place orders, while administrators can manage products.
+QuickShop is a simple e-commerce web application built using **React, Redux Toolkit, and React Bootstrap**. It allows users to browse products, manage their carts, and place orders, while administrators can manage products.
 
 ## Features
 
@@ -53,7 +53,7 @@ The Green Basket is a simple e-commerce web application built using **React, Red
 
 ## Folder Structure
 ```
-The Green Basket/
+QuickShop/
 │── public/
 │── src/
 │   ├── api/              # API requests
